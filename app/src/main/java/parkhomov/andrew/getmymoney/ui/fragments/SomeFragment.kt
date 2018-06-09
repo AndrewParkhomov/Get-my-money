@@ -1,0 +1,51 @@
+package parkhomov.andrew.getmymoney.ui.fragments
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import parkhomov.andrew.getmymoney.R
+import parkhomov.andrew.getmymoney.ui.base.BaseFragment
+import javax.inject.Inject
+
+class SomeFragment : BaseFragment(), SomeFragmentMvpView {
+
+    @Inject
+    lateinit var presenter: SomeFragmentMvpPresenter<SomeFragmentMvpView>
+
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        val view: View = inflater.inflate(
+                R.layout.presentation_terms_and_condition,
+                container,
+                false
+        )
+
+        activityComponent?.inject(this)
+        presenter.onAttach(this)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        header.setBigSpacing(getString(R.string.terms_and_conditions_header))
+    }
+
+    override fun onDestroyView() {
+        presenter.onDetach()
+        super.onDestroyView()
+    }
+
+
+    companion object {
+        val TAG: String = SomeFragment::class.java.simpleName
+        fun getInstance(termsAndConditionsText: String) = SomeFragment().apply {
+            arguments = Bundle(1).apply {
+                putString(TAG, termsAndConditionsText)
+            }
+        }
+    }
+}

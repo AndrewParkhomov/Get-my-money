@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GetMyMoney</string>
+    <string name="unknown_error">Some error occurred</string>
+</resources>
