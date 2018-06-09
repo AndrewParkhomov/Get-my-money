@@ -13,7 +13,7 @@
 
         <meta-data
             android:name="com.crashlytics.ApiKey"
-            android:value="" />
+            android:value="a89bea254d714d9e0d72ae71d9de8059d5bba05a" />
 
         <activity android:name=".ui.activity.InitialActivity">
             <intent-filter>

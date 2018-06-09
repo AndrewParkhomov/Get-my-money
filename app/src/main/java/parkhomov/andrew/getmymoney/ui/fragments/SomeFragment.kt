@@ -19,7 +19,7 @@ class SomeFragment : BaseFragment(), SomeFragmentMvpView {
             savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(
-                R.layout.presentation_terms_and_condition,
+                R.layout.some_fragment,
                 container,
                 false
         )
