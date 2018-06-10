@@ -15,13 +15,22 @@
             android:name="com.crashlytics.ApiKey"
             android:value="a89bea254d714d9e0d72ae71d9de8059d5bba05a" />
 
-        <activity android:name=".ui.activity.InitialActivity">
+        <activity
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme"
+            android:name=".ui.activity.splash.Splash">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:name=".ui.activity.main.InitialActivity" />
     </application>
 
 </manifest>

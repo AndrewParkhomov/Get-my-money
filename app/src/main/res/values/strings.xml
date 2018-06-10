@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">Get My Money</string>
+    <string name="app_name">Get my money</string>
     <string name="unknown_error">Some error occurred</string>
+    <string name="share_result">SHARE RESULT</string>
 </resources>

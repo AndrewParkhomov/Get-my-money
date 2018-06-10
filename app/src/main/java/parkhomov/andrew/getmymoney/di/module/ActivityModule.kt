@@ -7,12 +7,16 @@ import dagger.Provides
 import parkhomov.andrew.getmymoney.R
 import parkhomov.andrew.getmymoney.di.ActivityContext
 import parkhomov.andrew.getmymoney.di.PerActivity
-import parkhomov.andrew.getmymoney.ui.activity.InitialActivityMvpPresenter
-import parkhomov.andrew.getmymoney.ui.activity.InitialActivityMvpView
-import parkhomov.andrew.getmymoney.ui.activity.InitialActivityPresenter
+import parkhomov.andrew.getmymoney.ui.activity.main.InitialActivityMvpPresenter
+import parkhomov.andrew.getmymoney.ui.activity.main.InitialActivityMvpView
+import parkhomov.andrew.getmymoney.ui.activity.main.InitialActivityPresenter
+import parkhomov.andrew.getmymoney.ui.activity.main.InitialAdapter
 import parkhomov.andrew.getmymoney.ui.fragments.SomeFragmentMvpPresenter
 import parkhomov.andrew.getmymoney.ui.fragments.SomeFragmentMvpView
 import parkhomov.andrew.getmymoney.ui.fragments.SomeFragmentPresenter
+import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPersonMvpPresenter
+import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPersonMvpView
+import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPersonPresenter
 import parkhomov.andrew.getmymoney.utils.RecyclerDivider
 
 @Suppress("unused")
@@ -28,6 +32,9 @@ class ActivityModule(private val context: Context) {
             RecyclerDivider(1, ContextCompat.getColor(context, R.color.gainsboro))
 
     @Provides
+    internal fun provideAddDocumentAdapter(): InitialAdapter = InitialAdapter()
+
+    @Provides
     @PerActivity
     internal fun provideInitialActivityPresenter(
             presenter: InitialActivityPresenter<InitialActivityMvpView>
@@ -37,6 +44,12 @@ class ActivityModule(private val context: Context) {
     internal fun provideTermsAndConditionsPresenter(
             presenter: SomeFragmentPresenter<SomeFragmentMvpView>
     ): SomeFragmentMvpPresenter<SomeFragmentMvpView> = presenter
+
+    @Provides
+    internal fun provideAddPersonDialogPresenter(
+            presenter: AddPersonPresenter<AddPersonMvpView>
+    ): AddPersonMvpPresenter<AddPersonMvpView> = presenter
+
 
 }
 

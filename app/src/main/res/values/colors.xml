@@ -5,4 +5,7 @@
     <color name="colorAccent">#64B5F6</color>
     <color name="gainsboro">#dfdfdf</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="red">#F44336</color>
+    <color name="green">#4CAF50</color>
 </resources>

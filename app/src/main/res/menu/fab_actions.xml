@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_add_field"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="Add person" />
+
+    <item
+        android:id="@+id/action_calculate"
+        android:icon="@drawable/ic_check_black_24dp"
+        android:title="Calculate" />
+
+</menu>

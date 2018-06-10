@@ -13,14 +13,13 @@ class RecyclerDivider(dividerHeight: Int, color: Int) : ItemDecoration() {
     private var mDividerHeight: Int = dividerHeight
     private var mColor: Int = color
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: State?) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: State) {
         val layoutManager = parent.layoutManager
                 ?: throw RuntimeException("LayoutManager not found")
         if (layoutManager.getPosition(view) != 0) outRect.top = 0
     }
 
-    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: State?) {
-
+    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: State) {
         val paint = Paint()
         paint.color = mColor
 
