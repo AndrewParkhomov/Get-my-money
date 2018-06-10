@@ -7,10 +7,10 @@ import dagger.Provides
 import parkhomov.andrew.getmymoney.R
 import parkhomov.andrew.getmymoney.di.ActivityContext
 import parkhomov.andrew.getmymoney.di.PerActivity
-import parkhomov.andrew.getmymoney.ui.activity.main.InitialActivityMvpPresenter
-import parkhomov.andrew.getmymoney.ui.activity.main.InitialActivityMvpView
-import parkhomov.andrew.getmymoney.ui.activity.main.InitialActivityPresenter
-import parkhomov.andrew.getmymoney.ui.activity.main.InitialAdapter
+import parkhomov.andrew.getmymoney.ui.activity.main.MainActivityMvpPresenter
+import parkhomov.andrew.getmymoney.ui.activity.main.MainActivityMvpView
+import parkhomov.andrew.getmymoney.ui.activity.main.MainActivityPresenter
+import parkhomov.andrew.getmymoney.ui.activity.main.PersonItemsAdapter
 import parkhomov.andrew.getmymoney.ui.fragments.SomeFragmentMvpPresenter
 import parkhomov.andrew.getmymoney.ui.fragments.SomeFragmentMvpView
 import parkhomov.andrew.getmymoney.ui.fragments.SomeFragmentPresenter
@@ -32,13 +32,13 @@ class ActivityModule(private val context: Context) {
             RecyclerDivider(1, ContextCompat.getColor(context, R.color.gainsboro))
 
     @Provides
-    internal fun provideAddDocumentAdapter(): InitialAdapter = InitialAdapter()
+    internal fun provideAddDocumentAdapter(): PersonItemsAdapter = PersonItemsAdapter()
 
     @Provides
     @PerActivity
     internal fun provideInitialActivityPresenter(
-            presenter: InitialActivityPresenter<InitialActivityMvpView>
-    ): InitialActivityMvpPresenter<InitialActivityMvpView> = presenter
+            presenter: MainActivityPresenter<MainActivityMvpView>
+    ): MainActivityMvpPresenter<MainActivityMvpView> = presenter
 
     @Provides
     internal fun provideTermsAndConditionsPresenter(

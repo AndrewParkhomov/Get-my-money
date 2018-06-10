@@ -9,7 +9,7 @@ abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
     companion object {
 
-        const val VIEW_TYPE_EMPTY = 0
+        const val VIEW_TYPE_PERSON = 1
 
     }
 }
