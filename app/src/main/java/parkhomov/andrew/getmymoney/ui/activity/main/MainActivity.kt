@@ -81,22 +81,22 @@ class MainActivity : BaseActivity(),
     }
 
     private fun initializeAdapter() {
-//        adapter.personList = mutableListOf(
-//                PersonItem("name", 100f, 0f, black),
-//                PersonItem("name 2", 120f, 0f, black),
-//                PersonItem("name 3", 85f, 0f, black),
-//                PersonItem("name 4", 20f, 0f, black),
-//                PersonItem("name 4", 20f, 0f, black),
-//                PersonItem("name 4", 20f, 0f, black),
-//                PersonItem("name 4", 20f, 0f, black),
-//                PersonItem("name 4", 20f, 0f, black),
-//                PersonItem("name 4", 20f, 0f, black),
-//                PersonItem("name 4", 20f, 0f, black),
-//                PersonItem("name 4", 20f, 0f, black),
-//                PersonItem("name 4", 20f, 0f, black),
-//                PersonItem("name 4", 20f, 0f, black)
-//
-//        )
+        adapter.personList = mutableListOf(
+                PersonItem("name", 100f, 0f, black),
+                PersonItem("namesdsdsdsdsdasdsad 2", 120f, 0f, black),
+                PersonItem("namadadsdsdadadae 3", 85f, 0f, black),
+                PersonItem("name 4", 20f, 0f, black),
+                PersonItem("name 4", 20f, 0f, black),
+                PersonItem("name 4", 20f, 0f, black),
+                PersonItem("name 4", 20f, 0f, black),
+                PersonItem("name 4", 20f, 0f, black),
+                PersonItem("name 4", 20f, 0f, black),
+                PersonItem("name 4", 20f, 0f, black),
+                PersonItem("name 4", 20f, 0f, black),
+                PersonItem("name 4", 20f, 0f, black),
+                PersonItem("name 4", 20f, 0f, black)
+
+        )
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.addItemDecoration(recyclerDivider)
         recycler_view.adapter = adapter
@@ -142,7 +142,7 @@ class MainActivity : BaseActivity(),
 
     private fun onDeleteFieldClicked() {
         AlertDialog.Builder(this)
-                .setMessage("Do you really want to delete all items?")
+                .setMessage(getString(R.string.delete_all_question))
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes) { _, _ ->
                     adapter.isCalculated = false
@@ -154,7 +154,7 @@ class MainActivity : BaseActivity(),
     }
 
     private fun clearTotalTextView() {
-        total_amount.text = "" 
+        total_amount.text = ""
         amount_for_person.text = ""
     }
 
@@ -168,14 +168,14 @@ class MainActivity : BaseActivity(),
             total_amount.text = String.format(
                     Locale.US,
                     "%s%s%.02f",
-                    "Total amount:",
+                    getString(R.string.total_amount),
                     "\n",
                     totalAmount
             )
             amount_for_person.text = String.format(
                     Locale.US,
                     "%s%s%.02f",
-                    "Amount for person",
+                    getString(R.string.amount_for_person),
                     "\n",
                     amountForPerson
             )
@@ -190,7 +190,7 @@ class MainActivity : BaseActivity(),
             adapter.isCalculated = true
             adapter.notifyDataSetChanged()
         } else
-            showMessage("You need 2 persons for calculation")
+            showMessage(getString(R.string.dont_enough_persons_for_calculation))
 
     }
 
@@ -198,17 +198,18 @@ class MainActivity : BaseActivity(),
         if (total_amount.text != "" && amount_for_person.text != "") {
             val linkInPlayStore = "https://play.google.com/store/apps/details?id=" +
                     BuildConfig.APPLICATION_ID
-            val headerText = "Calculated by 'Get my money' app"
+            val headerText = getString(R.string.calculated_by)
 
             val intent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/html"
                 putExtra(Intent.EXTRA_EMAIL, "")
-                putExtra(Intent.EXTRA_SUBJECT, "Get my money result")
-                putExtra(Intent.EXTRA_TEXT, headerText + "\n" + linkInPlayStore + "\n\n" + createTextForSharing())
+                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_result_subject))
+                putExtra(Intent.EXTRA_TEXT, headerText + "\n" + linkInPlayStore + "\n\n" +
+                        createTextForSharing())
             }
             startActivity(Intent.createChooser(intent, getString(R.string.share_result)))
         } else {
-            showMessage("You should press 'Calculate' so that you can share results")
+            showMessage(getString(R.string.share_result_error))
         }
     }
 
@@ -216,13 +217,13 @@ class MainActivity : BaseActivity(),
         val stringBuilder = StringBuilder()
         stringBuilder.append(String.format(
                 Locale.US,
-                "%s %s  %.02f%s",
-                "Total amount", "=", totalAmount, "\n"
+                "%s %.02f%s",
+                getString(R.string.total_amount), totalAmount, "\n"
         ))
         stringBuilder.append(String.format(
                 Locale.US,
-                "%s %s  %.02f%s",
-                "Amount for person", "=", amountForPerson, "\n"
+                "%s %.02f%s",
+                getString(R.string.amount_for_person), amountForPerson, "\n"
         ))
         adapter.personList.forEach { person ->
             when {
@@ -230,21 +231,21 @@ class MainActivity : BaseActivity(),
                     stringBuilder.append(String.format(
                             Locale.US,
                             "%s %s %.02f%s",
-                            person.name, "paid more for", person.targetValue, "\n"
+                            person.name, getString(R.string.person_pay_more), person.targetValue, "\n"
                     ))
                 }
                 person.targetValue < 0 -> {
                     stringBuilder.append(String.format(
                             Locale.US,
                             "%s %s %.02f%s",
-                            person.name, "must pay", person.targetValue, "\n"
+                            person.name, getString(R.string.person_must_pay), person.targetValue, "\n"
                     ))
                 }
                 else -> {
                     stringBuilder.append(String.format(
                             Locale.US,
                             "%s %s%s",
-                            person.name, "nothing should give", "\n"
+                            person.name, getString(R.string.person_nothing_should_give), "\n"
                     ))
                 }
             }

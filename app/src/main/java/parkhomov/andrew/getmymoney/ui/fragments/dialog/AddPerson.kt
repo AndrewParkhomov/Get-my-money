@@ -69,11 +69,11 @@ class AddPerson : BaseDialog(),
         val personName = name.text.toString()
         val personValue = value.text.toString()
         if (personName.isEmpty()) {
-            showMessage("Name required")
+            showMessage(getString(R.string.name_required))
             return
         }
         if (personValue.isEmpty()) {
-            showMessage("Value required")
+            showMessage(getString(R.string.value_required))
             return
         }
         callback?.newPersonData(

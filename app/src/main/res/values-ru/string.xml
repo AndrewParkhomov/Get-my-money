@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Take my money</string>
+    <!-- Errors -->
+    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="name_required">Введите имя</string>
+    <string name="value_required">Введите сумму</string>
+    <string name="dont_enough_persons_for_calculation">Нужно минимум 2 человека для расчета</string>
+    <string name="share_result_error">Вы сможете поделиться результатом после нажатия кнопки \'Посчитать\'</string>
+    <!-- Top menu -->
+    <string name="menu_btn_clear_all">Очистить все</string>
+    <string name="menu_btn_share">Поделиться</string>
+    <string name="delete_all_question">Вы действительно хотите очистить список?</string>
+    <string name="share_result">Поделиться с помощью&#8230;</string>
+    <string name="share_result_subject">Результат расчета программы \'Take my money\'</string>
+    <string name="calculated_by">Посчитано с помощью приложения \'Take my money\'</string>
+    <string name="person_pay_more">заплатил больше на</string>
+    <string name="person_must_pay">должен отдать</string>
+    <string name="person_nothing_should_give">ничего не должен</string>
+    <!-- Bottom menu -->
+    <string name="menu_btn_add_person">Добавить человека</string>
+    <string name="menu_btn_calculate">Посчитать</string>
+    <!-- Main screen-->
+    <string name="total_amount">Общая сумма:</string>
+    <string name="amount_for_person">Сумма на человека:</string>
+    <!-- UI xml text -->
+    <string name="hint_name">Имя</string>
+    <string name="hint_value">Сумма</string>
+    <string name="btn_add_person">Добавить</string>
+    <string name="no_person_added_yet">Никто пока не добавлен.\nДобавить человека можно здесь</string>
+
+</resources>

@@ -34,7 +34,7 @@ class ApplicationModule(private val context: Context) {
     @Singleton
     fun provideCalligraphyDefaultConfig(): CalligraphyConfig =
             CalligraphyConfig.Builder()
-                    .setDefaultFontPath("fonts/futura.ttf")
+                    .setDefaultFontPath("font/droid_sans.ttf")
                     .setFontAttrId(R.attr.fontPath)
                     .build()
 

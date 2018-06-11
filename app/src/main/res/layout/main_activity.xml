@@ -21,7 +21,7 @@
         android:id="@+id/total_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         tools:text="Total amount:\n100500"
         android:textColor="@color/text_color"

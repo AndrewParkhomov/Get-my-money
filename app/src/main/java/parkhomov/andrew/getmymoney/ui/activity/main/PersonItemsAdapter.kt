@@ -1,6 +1,7 @@
 package parkhomov.andrew.getmymoney.ui.activity.main
 
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +55,14 @@ class PersonItemsAdapter : RecyclerView.Adapter<BaseViewHolder>() {
                     "%.02f",
                     person.targetValue)
             view.target_value.setTextColor(person.targetValueColor)
-            view.person_name.text = person.name
+            // set running line if needed
+            view.person_name.apply {
+                text = person.name
+                ellipsize = TextUtils.TruncateAt.MARQUEE
+                marqueeRepeatLimit = -1
+                setSingleLine(true)
+                isSelected = true
+            }
             view.person_value.text = person.value.toString()
         }
     }

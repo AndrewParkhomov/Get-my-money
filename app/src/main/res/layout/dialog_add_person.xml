@@ -24,7 +24,7 @@
             android:inputType="textCapSentences|textAutoCorrect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name" />
+            android:hint="@string/hint_name" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -45,14 +45,14 @@
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Value" />
+            android:hint="@string/hint_value" />
 
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/savePerson"
         style="@style/MyButton"
-        android:text="Add person"
+        android:text="@string/btn_add_person"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

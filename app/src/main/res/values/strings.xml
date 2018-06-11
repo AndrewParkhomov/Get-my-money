@@ -1,5 +1,31 @@
 <resources>
-    <string name="app_name">Get my money</string>
+    <string name="app_name">Take my money</string>
+    <!-- Errors -->
     <string name="unknown_error">Some error occurred</string>
-    <string name="share_result">SHARE RESULT</string>
+    <string name="name_required">Name required</string>
+    <string name="value_required">Value required</string>
+    <string name="dont_enough_persons_for_calculation">You need 2 persons for calculation</string>
+    <string name="share_result_error">You should press \'Calculate\' so that you can share results</string>
+    <!-- Top menu -->
+    <string name="menu_btn_clear_all">Clear all</string>
+    <string name="menu_btn_share">Share</string>
+    <string name="delete_all_question">Do you really want to delete all items?</string>
+    <string name="share_result">Share with&#8230;</string>
+    <string name="share_result_subject">Take my money result</string>
+    <string name="calculated_by">Calculated by \'Take my money\' app</string>
+    <string name="person_pay_more">paid more for</string>
+    <string name="person_must_pay">must pay</string>
+    <string name="person_nothing_should_give">nothing should give</string>
+    <!-- Bottom menu -->
+    <string name="menu_btn_add_person">Add person</string>
+    <string name="menu_btn_calculate">Calculate</string>
+    <!-- Main screen-->
+    <string name="total_amount">Total amount:</string>
+    <string name="amount_for_person">Amount for person:</string>
+    <!-- UI xml text -->
+    <string name="hint_name">Name</string>
+    <string name="hint_value">Value</string>
+    <string name="btn_add_person">Add</string>
+    <string name="no_person_added_yet">No persons added yet.\nAdd people here</string>
+
 </resources>
