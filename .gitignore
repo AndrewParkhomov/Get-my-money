@@ -1,4 +1,4 @@
-.gradle
+.gradle/
 /build/
 *.iml
 # Ignore Gradle GUI config
