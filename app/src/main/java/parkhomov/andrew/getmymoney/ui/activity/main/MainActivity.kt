@@ -6,19 +6,16 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.commit451.modalbottomsheetdialogfragment.ModalBottomSheetDialogFragment
-import com.commit451.modalbottomsheetdialogfragment.Option
 import kotlinx.android.synthetic.main.main_activity.*
 import parkhomov.andrew.getmymoney.BuildConfig
 import parkhomov.andrew.getmymoney.R
 import parkhomov.andrew.getmymoney.ui.base.BaseActivity
 import parkhomov.andrew.getmymoney.ui.base.BaseViewHolder
 import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPerson
-import parkhomov.andrew.getmymoney.utils.RecyclerDivider
+import parkhomov.andrew.getmymoney.utils.ui.RecyclerDivider
 import java.util.*
 import javax.inject.Inject
 
@@ -27,7 +24,6 @@ fun Context.mainActivityIntent(): Intent =
         Intent(this, MainActivity::class.java)
 
 class MainActivity : BaseActivity(),
-        ModalBottomSheetDialogFragment.Listener,
         AddPerson.OnSavePressed,
         MainActivityMvpView {
 
@@ -38,7 +34,6 @@ class MainActivity : BaseActivity(),
     @Inject
     lateinit var adapter: PersonItemsAdapter
 
-    private lateinit var builder: ModalBottomSheetDialogFragment.Builder
     private var totalAmount = 0f
     private var amountForPerson = 0f
     private var black: Int = 0
@@ -55,10 +50,9 @@ class MainActivity : BaseActivity(),
         activityComponent?.inject(this)
         presenter.onAttach(this)
 
-        builder = ModalBottomSheetDialogFragment.Builder()
-        builder.add(R.menu.fab_actions)
         initListeners()
         initializeAdapter()
+        clearTotalTextView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,16 +62,47 @@ class MainActivity : BaseActivity(),
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.action_add_field -> onAddFieldClicked()
             R.id.action_delete -> onDeleteFieldClicked()
-            R.id.action_calculate -> onCalculateButtonClicked()
             R.id.action_share -> shareResultClicked()
+            R.id.action_save -> onSaveClicked()
+            R.id.action_restore -> onRestoreClicked()
         }
         return super.onOptionsItemSelected(item)
     }
 
+    private fun onRestoreClicked() {
+        presenter.onRestoreButtonClicked()
+    }
+
+    private fun onSaveClicked() {
+        presenter.onSaveButtonClicked()
+    }
+
+    override fun createSaveListDialog(stringId: Int) {
+        AlertDialog.Builder(this)
+                .setMessage(getString(stringId))
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes) { _, _ ->
+                    presenter.saveList(adapter.personList)
+                }.create().show()
+    }
+
+    override fun createRestoreListDialog(list: MutableList<PersonItem>) {
+        AlertDialog.Builder(this)
+                .setMessage(getString(R.string.restore_list_message))
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes) { _, _ ->
+                    adapter.isCalculated = false
+                    adapter.personList = list
+                    adapter.notifyDataSetChanged()
+                    handleTotalAmountVisibility()
+                    clearTotalTextView()
+                }.create().show()
+    }
+
     private fun initListeners() {
-        add_field.setOnClickListener { onFabClicked() }
+        button_add.setOnClickListener { onAddButtonClicked() }
+        button_calculate.setOnClickListener { onCalculateButtonClicked() }
     }
 
     private fun initializeAdapter() {
@@ -101,16 +126,48 @@ class MainActivity : BaseActivity(),
         recycler_view.addItemDecoration(recyclerDivider)
         recycler_view.adapter = adapter
 
-        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0 && add_field.visibility == View.VISIBLE) {
-                    add_field.hide()
-                } else if (dy < 0 && add_field.visibility != View.VISIBLE) {
-                    add_field.show()
-                }
-            }
-        })
+//        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                if (dy > 0 && button_container.visibility == View.VISIBLE) {
+//                    button_container.animate()
+//                            .alpha(0f)
+//                            .translationY(+button_container.height.toFloat())
+//                            .setInterpolator(AccelerateInterpolator(1.4f))
+//                            .setListener(object : Animator.AnimatorListener {
+//                                override fun onAnimationStart(animation: Animator) {}
+//                                override fun onAnimationEnd(animation: Animator) {
+//                                    button_container.visibility = View.GONE
+//                                }
+//
+//                                override fun onAnimationCancel(animation: Animator) {}
+//                                override fun onAnimationRepeat(animation: Animator) {}
+//                            })
+//                } else if (dy < 0 && button_container.visibility != View.VISIBLE) {
+//                    button_container.animate()
+//                            .alpha(1.0f)
+//                            .translationY(0f)
+//                            .setInterpolator(DecelerateInterpolator(1f))
+//                            .start()
+//                    button_container.animate()
+//                            .alpha(1.0f)
+//                            .translationY(0f)
+//                            .setInterpolator(DecelerateInterpolator(1.4f))
+//                            .setListener(object : Animator.AnimatorListener {
+//                                override fun onAnimationStart(animation: Animator) {
+////                                    button_container.visibility = View.VISIBLE
+//                                }
+//
+//                                override fun onAnimationEnd(animation: Animator) {
+//                                    button_container.visibility = View.VISIBLE
+//                                }
+//
+//                                override fun onAnimationCancel(animation: Animator) {}
+//                                override fun onAnimationRepeat(animation: Animator) {}
+//                            })
+//                }
+//            }
+//        })
 
         handleTotalAmountVisibility()
     }
@@ -123,20 +180,7 @@ class MainActivity : BaseActivity(),
         divider.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
-    private fun onFabClicked() {
-        builder.show(supportFragmentManager, this::class.java.simpleName)
-    }
-
-    override fun onModalOptionSelected(tag: String?, option: Option) {
-        when (option.id) {
-            R.id.action_add_field -> onAddFieldClicked()
-            R.id.action_delete -> onDeleteFieldClicked()
-            R.id.action_calculate -> onCalculateButtonClicked()
-            R.id.action_share -> shareResultClicked()
-        }
-    }
-
-    private fun onAddFieldClicked() {
+    private fun onAddButtonClicked() {
         AddPerson().show(supportFragmentManager)
     }
 
@@ -150,12 +194,23 @@ class MainActivity : BaseActivity(),
                     adapter.notifyDataSetChanged()
                     clearTotalTextView()
                     handleTotalAmountVisibility()
+                    button_container.visibility = View.VISIBLE
                 }.create().show()
     }
 
     private fun clearTotalTextView() {
-        total_amount.text = ""
-        amount_for_person.text = ""
+        total_amount.text = String.format(
+                Locale.US,
+                "%s:%s",
+                getString(R.string.total_amount),
+                "\n"
+        )
+        amount_for_person.text = String.format(
+                Locale.US,
+                "%s:%s",
+                getString(R.string.amount_for_person),
+                "\n"
+        )
     }
 
     private fun onCalculateButtonClicked() {
@@ -167,14 +222,14 @@ class MainActivity : BaseActivity(),
             amountForPerson = totalAmount / adapter.personList.count()
             total_amount.text = String.format(
                     Locale.US,
-                    "%s%s%.02f",
+                    "%s:%s%.02f",
                     getString(R.string.total_amount),
                     "\n",
                     totalAmount
             )
             amount_for_person.text = String.format(
                     Locale.US,
-                    "%s%s%.02f",
+                    "%s:%s%.02f",
                     getString(R.string.amount_for_person),
                     "\n",
                     amountForPerson
@@ -217,12 +272,12 @@ class MainActivity : BaseActivity(),
         val stringBuilder = StringBuilder()
         stringBuilder.append(String.format(
                 Locale.US,
-                "%s %.02f%s",
+                "%s: %.02f%s",
                 getString(R.string.total_amount), totalAmount, "\n"
         ))
         stringBuilder.append(String.format(
                 Locale.US,
-                "%s %.02f%s",
+                "%s: %.02f%s",
                 getString(R.string.amount_for_person), amountForPerson, "\n"
         ))
         adapter.personList.forEach { person ->
@@ -254,6 +309,7 @@ class MainActivity : BaseActivity(),
         return stringBuilder.toString()
     }
 
+
     override fun newPersonData(name: String, value: Float) {
         hideKeyboard()
         adapter.personList.add(PersonItem(name, value, 0f, black))
@@ -268,7 +324,7 @@ class MainActivity : BaseActivity(),
         super.onDestroy()
     }
 
-    internal data class PersonItem(
+    data class PersonItem(
             val name: String,
             val value: Float,
             var targetValue: Float,

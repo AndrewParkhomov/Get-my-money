@@ -1,6 +1,5 @@
 package parkhomov.andrew.getmymoney.ui.fragments.dialog
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.dialog_add_person.*
 import parkhomov.andrew.getmymoney.R
 import parkhomov.andrew.getmymoney.ui.base.BaseDialog

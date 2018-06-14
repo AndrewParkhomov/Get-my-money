@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
+import parkhomov.andrew.getmymoney.interactor.MainActivityInteractor
 import parkhomov.andrew.getmymoney.R
 import parkhomov.andrew.getmymoney.utils.AppPreferencesHelper
 import parkhomov.andrew.getmymoney.utils.PreferencesHelper
@@ -37,5 +38,14 @@ class ApplicationModule(private val context: Context) {
                     .setDefaultFontPath("font/droid_sans.ttf")
                     .setFontAttrId(R.attr.fontPath)
                     .build()
+
+    // Interactors
+    @Provides
+    @Singleton
+    fun provideInitialInteractor(
+            preferencesHelper: PreferencesHelper
+    ): MainActivityInteractor = MainActivityInteractor(
+            preferencesHelper
+    )
 
 }

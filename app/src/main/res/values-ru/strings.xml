@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Take my money</string>
     <!-- Errors -->
@@ -9,7 +10,13 @@
     <!-- Top menu -->
     <string name="menu_btn_clear_all">Очистить все</string>
     <string name="menu_btn_share">Поделиться</string>
+    <string name="menu_btn_save">Сохранить</string>
+    <string name="menu_btn_restore">Загрузить</string>
+    <string name="save_list_message_with_warning">Вы действительно хотите сохранить список? Предыдущее сохранине будет перезаписано.</string>  <!-- todo-->
+    <string name="save_list_message_without_warning">Вы действительно хотите сохранить список?</string>   <!-- todo-->
+    <string name="restore_list_message">Вы действительно хотите загрузить сохраненный список? Текущий список будет удален.</string>   <!-- todo-->
     <string name="delete_all_question">Вы действительно хотите очистить список?</string>
+    <string name="saved_list_is_empty">У вас нету сохраненного списка</string>
     <string name="share_result">Поделиться с помощью&#8230;</string>
     <string name="share_result_subject">Результат расчета программы \'Take my money\'</string>
     <string name="calculated_by">Посчитано с помощью приложения \'Take my money\'</string>
@@ -20,12 +27,12 @@
     <string name="menu_btn_add_person">Добавить человека</string>
     <string name="menu_btn_calculate">Посчитать</string>
     <!-- Main screen-->
-    <string name="total_amount">Общая сумма:</string>
-    <string name="amount_for_person">Сумма на человека:</string>
+    <string name="total_amount">Общая сумма</string>
+    <string name="amount_for_person">Сумма на человека</string>
     <!-- UI xml text -->
     <string name="hint_name">Имя</string>
     <string name="hint_value">Сумма</string>
     <string name="btn_add_person">Добавить</string>
-    <string name="no_person_added_yet">Никто пока не добавлен.\nДобавить человека можно здесь</string>
+    <string name="no_person_added_yet">Никто пока не добавлен</string>
 
 </resources>

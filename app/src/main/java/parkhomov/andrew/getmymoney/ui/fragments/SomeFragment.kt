@@ -38,7 +38,7 @@ class SomeFragment : BaseFragment(), SomeFragmentMvpView {
         presenter.onDetach()
         super.onDestroyView()
     }
-
+//    mBinding.listCategoryContainer.animate().alpha(1.0f).translationY(0).setInterpolator(new DecelerateInterpolator(1)).start();
 
     companion object {
         val TAG: String = SomeFragment::class.java.simpleName

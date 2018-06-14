@@ -14,4 +14,16 @@
         android:title="@string/menu_btn_share"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_save"
+        android:icon="@drawable/ic_save_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_btn_save" />
+
+    <item
+        android:id="@+id/action_restore"
+        android:icon="@drawable/ic_restore_page_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_btn_restore" />
+
 </menu>

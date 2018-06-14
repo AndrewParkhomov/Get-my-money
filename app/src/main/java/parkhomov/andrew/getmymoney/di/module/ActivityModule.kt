@@ -17,7 +17,7 @@ import parkhomov.andrew.getmymoney.ui.fragments.SomeFragmentPresenter
 import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPersonMvpPresenter
 import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPersonMvpView
 import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPersonPresenter
-import parkhomov.andrew.getmymoney.utils.RecyclerDivider
+import parkhomov.andrew.getmymoney.utils.ui.RecyclerDivider
 
 @Suppress("unused")
 @Module

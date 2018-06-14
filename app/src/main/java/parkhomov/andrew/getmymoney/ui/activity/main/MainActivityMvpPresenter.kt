@@ -6,5 +6,10 @@ import parkhomov.andrew.getmymoney.ui.base.MvpPresenter
 @PerActivity
 interface MainActivityMvpPresenter<V : MainActivityMvpView> : MvpPresenter<V> {
 
+    fun saveList(personList: MutableList<MainActivity.PersonItem>)
+
+    fun onRestoreButtonClicked()
+
+    fun onSaveButtonClicked()
 
 }

@@ -1,4 +1,4 @@
-package parkhomov.andrew.getmymoney.utils
+package parkhomov.andrew.getmymoney.utils.ui
 
 import android.graphics.Canvas
 import android.graphics.Paint
