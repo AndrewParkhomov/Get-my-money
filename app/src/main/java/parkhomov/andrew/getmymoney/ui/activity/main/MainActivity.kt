@@ -15,6 +15,8 @@ import parkhomov.andrew.getmymoney.R
 import parkhomov.andrew.getmymoney.ui.base.BaseActivity
 import parkhomov.andrew.getmymoney.ui.base.BaseViewHolder
 import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPerson
+import parkhomov.andrew.getmymoney.utils.Utils
+import parkhomov.andrew.getmymoney.utils.ui.QuickReturnFooterBehavior
 import parkhomov.andrew.getmymoney.utils.ui.RecyclerDivider
 import java.util.*
 import javax.inject.Inject
@@ -88,8 +90,12 @@ class MainActivity : BaseActivity(),
     }
 
     override fun createRestoreListDialog(list: MutableList<PersonItem>) {
+        val stringId = if (adapter.personList.count() == 0)
+            R.string.restore_list_empty_current_list_message
+        else
+            R.string.restore_list_not_empty_current_list_message
         AlertDialog.Builder(this)
-                .setMessage(getString(R.string.restore_list_message))
+                .setMessage(getString(stringId))
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes) { _, _ ->
                     adapter.isCalculated = false
@@ -97,6 +103,7 @@ class MainActivity : BaseActivity(),
                     adapter.notifyDataSetChanged()
                     handleTotalAmountVisibility()
                     clearTotalTextView()
+                    setRecyclerViewMargin(160f)
                 }.create().show()
     }
 
@@ -126,49 +133,6 @@ class MainActivity : BaseActivity(),
         recycler_view.addItemDecoration(recyclerDivider)
         recycler_view.adapter = adapter
 
-//        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                if (dy > 0 && button_container.visibility == View.VISIBLE) {
-//                    button_container.animate()
-//                            .alpha(0f)
-//                            .translationY(+button_container.height.toFloat())
-//                            .setInterpolator(AccelerateInterpolator(1.4f))
-//                            .setListener(object : Animator.AnimatorListener {
-//                                override fun onAnimationStart(animation: Animator) {}
-//                                override fun onAnimationEnd(animation: Animator) {
-//                                    button_container.visibility = View.GONE
-//                                }
-//
-//                                override fun onAnimationCancel(animation: Animator) {}
-//                                override fun onAnimationRepeat(animation: Animator) {}
-//                            })
-//                } else if (dy < 0 && button_container.visibility != View.VISIBLE) {
-//                    button_container.animate()
-//                            .alpha(1.0f)
-//                            .translationY(0f)
-//                            .setInterpolator(DecelerateInterpolator(1f))
-//                            .start()
-//                    button_container.animate()
-//                            .alpha(1.0f)
-//                            .translationY(0f)
-//                            .setInterpolator(DecelerateInterpolator(1.4f))
-//                            .setListener(object : Animator.AnimatorListener {
-//                                override fun onAnimationStart(animation: Animator) {
-////                                    button_container.visibility = View.VISIBLE
-//                                }
-//
-//                                override fun onAnimationEnd(animation: Animator) {
-//                                    button_container.visibility = View.VISIBLE
-//                                }
-//
-//                                override fun onAnimationCancel(animation: Animator) {}
-//                                override fun onAnimationRepeat(animation: Animator) {}
-//                            })
-//                }
-//            }
-//        })
-
         handleTotalAmountVisibility()
     }
 
@@ -178,6 +142,16 @@ class MainActivity : BaseActivity(),
         total_amount.visibility = if (isVisible) View.VISIBLE else View.GONE
         amount_for_person.visibility = if (isVisible) View.VISIBLE else View.GONE
         divider.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+
+    private fun setRecyclerViewMargin(topMargin: Float) {
+        recycler_view.isNestedScrollingEnabled = topMargin != 0f
+        Utils.setMargins(recycler_view,
+                0,
+                Utils.convertDpToPixel(topMargin, this).toInt(),
+                0,
+                0
+        )
     }
 
     private fun onAddButtonClicked() {
@@ -194,7 +168,8 @@ class MainActivity : BaseActivity(),
                     adapter.notifyDataSetChanged()
                     clearTotalTextView()
                     handleTotalAmountVisibility()
-                    button_container.visibility = View.VISIBLE
+                    QuickReturnFooterBehavior(this, null).show(button_container)
+                    setRecyclerViewMargin(0f)
                 }.create().show()
     }
 
@@ -250,7 +225,7 @@ class MainActivity : BaseActivity(),
     }
 
     private fun shareResultClicked() {
-        if (total_amount.text != "" && amount_for_person.text != "") {
+        if (adapter.isCalculated) {
             val linkInPlayStore = "https://play.google.com/store/apps/details?id=" +
                     BuildConfig.APPLICATION_ID
             val headerText = getString(R.string.calculated_by)
@@ -309,14 +284,16 @@ class MainActivity : BaseActivity(),
         return stringBuilder.toString()
     }
 
-
     override fun newPersonData(name: String, value: Float) {
         hideKeyboard()
         adapter.personList.add(PersonItem(name, value, 0f, black))
         adapter.isCalculated = false
         adapter.notifyDataSetChanged()
         clearTotalTextView()
-        if (total_amount.visibility == View.GONE) handleTotalAmountVisibility()
+        if (total_amount.visibility == View.GONE) {
+            handleTotalAmountVisibility()
+            setRecyclerViewMargin(160f)
+        }
     }
 
     override fun onDestroy() {

@@ -19,7 +19,7 @@ import android.view.animation.Interpolator
  *
  * @author bherbst
  */
-class QuickReturnFooterBehavior(context: Context, attrs: AttributeSet) :
+class QuickReturnFooterBehavior(context: Context, attrs: AttributeSet?) :
         CoordinatorLayout.Behavior<View>(context, attrs) {
 
     private val INTERPOLATOR = FastOutSlowInInterpolator()
@@ -127,7 +127,7 @@ class QuickReturnFooterBehavior(context: Context, attrs: AttributeSet) :
      *
      * @param view The quick return view
      */
-    private fun show(view: View) {
+     fun show(view: View) {
         view.animate().cancel()
 
         view.animate()

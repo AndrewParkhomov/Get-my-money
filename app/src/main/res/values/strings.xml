@@ -13,7 +13,8 @@
     <string name="menu_btn_restore">Restore</string>
     <string name="save_list_message_with_warning">Do you want to save list? Previous save will be overwritten.</string>  <!-- todo-->
     <string name="save_list_message_without_warning">Do you want to save list?</string>   <!-- todo-->
-    <string name="restore_list_message">Do you want to restore saved list? Current list will be deleted.</string>   <!-- todo-->
+    <string name="restore_list_not_empty_current_list_message">Do you want to restore saved list? Current list will be deleted.</string>   <!-- todo-->
+    <string name="restore_list_empty_current_list_message">Do you want to restore saved list?</string>   <!-- todo-->
     <string name="delete_all_question">Do you really want to delete all items?</string>
     <string name="saved_list_is_empty">Saved list not found</string>
     <string name="share_result">Share with&#8230;</string>
@@ -32,6 +33,6 @@
     <string name="hint_name">Name</string>
     <string name="hint_value">Value</string>
     <string name="btn_add_person">Add</string>
-    <string name="no_person_added_yet">No persons added yet</string>
+    <string name="no_person_added_yet">No persons added yet.\nAdd people </string>
 
 </resources>
