@@ -12,4 +12,6 @@ interface MainActivityMvpPresenter<V : MainActivityMvpView> : MvpPresenter<V> {
 
     fun onSaveButtonClicked()
 
+    fun getCheckboxState()
+
 }

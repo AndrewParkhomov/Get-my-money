@@ -8,5 +8,9 @@ interface MainActivityMvpView : MvpView {
 
     fun createSaveListDialog(stringId: Int)
 
+    fun initializeAdapter(isChecked: Boolean)
+
+    fun checkboxStateChanged(isChecked: Boolean)
+
 
 }

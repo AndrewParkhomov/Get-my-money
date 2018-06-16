@@ -26,4 +26,9 @@
         app:showAsAction="ifRoom"
         android:title="@string/menu_btn_restore" />
 
+    <item
+        android:id="@+id/action_show_fragment"
+        app:showAsAction="never"
+        android:title="@string/menu_btn_show_fragment" />
+
 </menu>

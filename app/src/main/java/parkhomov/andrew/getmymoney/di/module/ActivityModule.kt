@@ -11,9 +11,9 @@ import parkhomov.andrew.getmymoney.ui.activity.main.MainActivityMvpPresenter
 import parkhomov.andrew.getmymoney.ui.activity.main.MainActivityMvpView
 import parkhomov.andrew.getmymoney.ui.activity.main.MainActivityPresenter
 import parkhomov.andrew.getmymoney.ui.activity.main.PersonItemsAdapter
-import parkhomov.andrew.getmymoney.ui.fragments.SomeFragmentMvpPresenter
-import parkhomov.andrew.getmymoney.ui.fragments.SomeFragmentMvpView
-import parkhomov.andrew.getmymoney.ui.fragments.SomeFragmentPresenter
+import parkhomov.andrew.getmymoney.ui.fragments.HowItsWorkMvpPresenter
+import parkhomov.andrew.getmymoney.ui.fragments.HowItsWorkMvpView
+import parkhomov.andrew.getmymoney.ui.fragments.HowItsWorkPresenter
 import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPersonMvpPresenter
 import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPersonMvpView
 import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPersonPresenter
@@ -42,8 +42,8 @@ class ActivityModule(private val context: Context) {
 
     @Provides
     internal fun provideTermsAndConditionsPresenter(
-            presenter: SomeFragmentPresenter<SomeFragmentMvpView>
-    ): SomeFragmentMvpPresenter<SomeFragmentMvpView> = presenter
+            presenter: HowItsWorkPresenter<HowItsWorkMvpView>
+    ): HowItsWorkMvpPresenter<HowItsWorkMvpView> = presenter
 
     @Provides
     internal fun provideAddPersonDialogPresenter(

@@ -5,17 +5,20 @@
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="name_required">Введите имя</string>
     <string name="value_required">Введите сумму</string>
+    <string name="save_list_is_empty">Список людей пуст</string>
+    <string name="delete_list_is_empty">Список людей пуст</string>
     <string name="dont_enough_persons_for_calculation">Нужно минимум 2 человека для расчета</string>
     <string name="share_result_error">Вы сможете поделиться результатом после нажатия кнопки \'Посчитать\'</string>
-    <!-- Top menu -->
+    <!-- Menu -->
     <string name="menu_btn_clear_all">Очистить все</string>
     <string name="menu_btn_share">Поделиться</string>
     <string name="menu_btn_save">Сохранить</string>
     <string name="menu_btn_restore">Загрузить</string>
-    <string name="save_list_message_with_warning">Вы действительно хотите сохранить список? Предыдущее сохранине будет перезаписано.</string>  <!-- todo-->
-    <string name="save_list_message_without_warning">Вы действительно хотите сохранить список?</string>   <!-- todo-->
-    <string name="restore_list_not_empty_current_list_message">Вы действительно хотите загрузить сохраненный список? Текущий список будет удален.</string>   <!-- todo-->
-    <string name="restore_list_empty_current_list_message">Вы действительно хотите загрузить сохраненный список?</string>   <!-- todo-->
+    <string name="menu_btn_show_fragment">Как это работает</string>
+    <string name="save_list_message_with_warning">Вы действительно хотите сохранить список? Предыдущее сохранине будет перезаписано.</string>
+    <string name="save_list_message_without_warning">Вы действительно хотите сохранить список?</string>
+    <string name="restore_list_not_empty_current_list_message">Вы действительно хотите загрузить сохраненный список? Текущий список будет удален.</string>
+    <string name="restore_list_empty_current_list_message">Вы действительно хотите загрузить сохраненный список?</string>
     <string name="delete_all_question">Вы действительно хотите очистить список?</string>
     <string name="saved_list_is_empty">У вас нету сохраненного списка</string>
     <string name="share_result">Поделиться с помощью&#8230;</string>
@@ -24,9 +27,6 @@
     <string name="person_pay_more">заплатил больше на</string>
     <string name="person_must_pay">должен отдать</string>
     <string name="person_nothing_should_give">ничего не должен</string>
-    <!-- Bottom menu -->
-    <string name="menu_btn_add_person">Добавить человека</string>
-    <string name="menu_btn_calculate">Посчитать</string>
     <!-- Main screen-->
     <string name="total_amount">Общая сумма</string>
     <string name="amount_for_person">Сумма на человека</string>
@@ -34,6 +34,20 @@
     <string name="hint_name">Имя</string>
     <string name="hint_value">Сумма</string>
     <string name="btn_add_person">Добавить</string>
+    <string name="btn_calculate">Посчитать</string>
     <string name="no_person_added_yet">Никто пока не добавлен</string>
+    <!-- How it's work fragment-->
+    <string name="how_its_work_title">Как это работает?</string>
+    <string name="show_hint_on_main_screen">Показывать подсказку на главном экране</string>
+    <string name="how_its_work_text">\tПриложение поможет рассчитать сумму, которую вы должны, или
+        должны вам после того как вы компанией совершали покупки и не знаете кто сколько кому должен.
+        \nК примеру Олег потратил 125, Александр -  30.45, Елена - 101.33 и Юлия 64.98.
+        Приложение посчитает общую сумму (321.76), сумму которую должен заплатить каждый
+        (сумма разбивается поровну между всеми участниками списка) - 80.44, и индивидуально
+        кто должен сколько отдать. \n\tАлександр заплатил больше на 44.56, Олег должен отдать 49.99,
+        Елена заплатила больше на 20.89 и Юлия должна отдать 15.46.\n\tВы можете добавить неограниченное
+        количество людей, поделиться результатом через мессенджер или отправить емейл.
+        Также вы можете сохранить результат, очистить список, создать новый и позже загрузить сохранение,
+        добавить людей и произвести расчет снова.\n\n\tTodo\n\t-История всех сохраненных результатов</string>
 
 </resources>

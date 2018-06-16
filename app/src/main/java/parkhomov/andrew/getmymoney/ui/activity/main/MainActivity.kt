@@ -10,10 +10,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.main_activity.*
+import kotlinx.android.synthetic.main.toolbar.*
 import parkhomov.andrew.getmymoney.BuildConfig
 import parkhomov.andrew.getmymoney.R
+import parkhomov.andrew.getmymoney.R.layout.toolbar
 import parkhomov.andrew.getmymoney.ui.base.BaseActivity
 import parkhomov.andrew.getmymoney.ui.base.BaseViewHolder
+import parkhomov.andrew.getmymoney.ui.fragments.HowItsWork
 import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPerson
 import parkhomov.andrew.getmymoney.utils.Utils
 import parkhomov.andrew.getmymoney.utils.ui.QuickReturnFooterBehavior
@@ -51,10 +54,12 @@ class MainActivity : BaseActivity(),
 
         activityComponent?.inject(this)
         presenter.onAttach(this)
+        presenter.getCheckboxState()
 
         initListeners()
-        initializeAdapter()
         clearTotalTextView()
+        handleTotalAmountVisibility()
+        setRecyclerViewMargin(0f)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -62,14 +67,55 @@ class MainActivity : BaseActivity(),
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_delete -> onDeleteFieldClicked()
             R.id.action_share -> shareResultClicked()
             R.id.action_save -> onSaveClicked()
             R.id.action_restore -> onRestoreClicked()
+            R.id.action_show_fragment -> onShowHowItsWorkFragmentClicked()
+            android.R.id.home -> onBackPressed()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun initializeAdapter(isChecked: Boolean) {
+        //        adapter.personList = mutableListOf(
+//                PersonItem("name", 100f, 0f, black),
+//                PersonItem("namesdsdsdsdsdasdsad 2", 120f, 0f, black),
+//                PersonItem("namadadsdsdadadae 3", 85f, 0f, black),
+//                PersonItem("name 4", 20f, 0f, black),
+//                PersonItem("name 4", 20f, 0f, black),
+//                PersonItem("name 4", 20f, 0f, black),
+//                PersonItem("name 4", 20f, 0f, black),
+//                PersonItem("name 4", 20f, 0f, black),
+//                PersonItem("name 4", 20f, 0f, black),
+//                PersonItem("name 4", 20f, 0f, black),
+//                PersonItem("name 4", 20f, 0f, black),
+//                PersonItem("name 4", 20f, 0f, black),
+//                PersonItem("name 4", 20f, 0f, black)
+//
+//        )
+        adapter.onHowItsWorkClickListener = {
+            onShowHowItsWorkFragmentClicked()
+        }
+        adapter.isShowLinkToHowItsWorkFragment = isChecked
+        recycler_view.layoutManager = LinearLayoutManager(this)
+        recycler_view.addItemDecoration(recyclerDivider)
+        recycler_view.adapter = adapter
+    }
+
+    override fun checkboxStateChanged(isChecked: Boolean) {
+        adapter.isShowLinkToHowItsWorkFragment = isChecked
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun onShowHowItsWorkFragmentClicked() {
+        supportFragmentManager!!
+                .beginTransaction()
+                .addToBackStack(null)
+                .add(R.id.mainContainer, HowItsWork.instance, HowItsWork.TAG)
+                .commit()
     }
 
     private fun onRestoreClicked() {
@@ -81,12 +127,16 @@ class MainActivity : BaseActivity(),
     }
 
     override fun createSaveListDialog(stringId: Int) {
-        AlertDialog.Builder(this)
-                .setMessage(getString(stringId))
-                .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes) { _, _ ->
-                    presenter.saveList(adapter.personList)
-                }.create().show()
+        if(adapter.personList.count() != 0){
+            AlertDialog.Builder(this)
+                    .setMessage(getString(stringId))
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes) { _, _ ->
+                        presenter.saveList(adapter.personList)
+                    }.create().show()
+        }else{
+            showMessage(getString(R.string.save_list_is_empty))
+        }
     }
 
     override fun createRestoreListDialog(list: MutableList<PersonItem>) {
@@ -112,30 +162,6 @@ class MainActivity : BaseActivity(),
         button_calculate.setOnClickListener { onCalculateButtonClicked() }
     }
 
-    private fun initializeAdapter() {
-        adapter.personList = mutableListOf(
-                PersonItem("name", 100f, 0f, black),
-                PersonItem("namesdsdsdsdsdasdsad 2", 120f, 0f, black),
-                PersonItem("namadadsdsdadadae 3", 85f, 0f, black),
-                PersonItem("name 4", 20f, 0f, black),
-                PersonItem("name 4", 20f, 0f, black),
-                PersonItem("name 4", 20f, 0f, black),
-                PersonItem("name 4", 20f, 0f, black),
-                PersonItem("name 4", 20f, 0f, black),
-                PersonItem("name 4", 20f, 0f, black),
-                PersonItem("name 4", 20f, 0f, black),
-                PersonItem("name 4", 20f, 0f, black),
-                PersonItem("name 4", 20f, 0f, black),
-                PersonItem("name 4", 20f, 0f, black)
-
-        )
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        recycler_view.addItemDecoration(recyclerDivider)
-        recycler_view.adapter = adapter
-
-        handleTotalAmountVisibility()
-    }
-
     private fun handleTotalAmountVisibility() {
         val isVisible = adapter.personList.count() != 0
         top_image_view.visibility = if (isVisible) View.VISIBLE else View.GONE
@@ -159,18 +185,22 @@ class MainActivity : BaseActivity(),
     }
 
     private fun onDeleteFieldClicked() {
-        AlertDialog.Builder(this)
-                .setMessage(getString(R.string.delete_all_question))
-                .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes) { _, _ ->
-                    adapter.isCalculated = false
-                    adapter.personList.clear()
-                    adapter.notifyDataSetChanged()
-                    clearTotalTextView()
-                    handleTotalAmountVisibility()
-                    QuickReturnFooterBehavior(this, null).show(button_container)
-                    setRecyclerViewMargin(0f)
-                }.create().show()
+        if(adapter.personList.count() != 0){
+            AlertDialog.Builder(this)
+                    .setMessage(getString(R.string.delete_all_question))
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes) { _, _ ->
+                        adapter.isCalculated = false
+                        adapter.personList.clear()
+                        adapter.notifyDataSetChanged()
+                        clearTotalTextView()
+                        handleTotalAmountVisibility()
+                        QuickReturnFooterBehavior(this, null).show(button_container)
+                        setRecyclerViewMargin(0f)
+                    }.create().show()
+        }else{
+            showMessage(getString(R.string.delete_list_is_empty))
+        }
     }
 
     private fun clearTotalTextView() {
@@ -231,7 +261,7 @@ class MainActivity : BaseActivity(),
             val headerText = getString(R.string.calculated_by)
 
             val intent = Intent(Intent.ACTION_SEND).apply {
-                type = "text/html"
+                type = "text/plain"
                 putExtra(Intent.EXTRA_EMAIL, "")
                 putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_result_subject))
                 putExtra(Intent.EXTRA_TEXT, headerText + "\n" + linkInPlayStore + "\n\n" +

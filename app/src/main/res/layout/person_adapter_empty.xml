@@ -10,7 +10,7 @@
         android:id="@+id/empty_list_image"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:lineSpacingExtra="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:text="@string/no_person_added_yet"
@@ -32,6 +32,19 @@
         app:layout_constraintEnd_toEndOf="@+id/empty_list_image"
         app:layout_constraintStart_toStartOf="@+id/empty_list_image"
         app:layout_constraintTop_toBottomOf="@+id/empty_list_image" />
+
+    <TextView
+        android:id="@+id/link_to_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:textColor="@color/selector_text_clicked"
+        android:text="@string/how_its_work_title"
+        app:layout_constraintEnd_toEndOf="@+id/empty_list_text"
+        app:layout_constraintStart_toStartOf="@+id/empty_list_text"
+        app:layout_constraintTop_toBottomOf="@+id/empty_list_text" />
+
 
 
 </android.support.constraint.ConstraintLayout>

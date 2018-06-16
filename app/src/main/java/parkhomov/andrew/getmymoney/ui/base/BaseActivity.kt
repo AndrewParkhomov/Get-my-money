@@ -9,7 +9,6 @@ import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import parkhomov.andrew.getmymoney.MyApp
 import parkhomov.andrew.getmymoney.R
 import parkhomov.andrew.getmymoney.di.component.ActivityComponent
@@ -60,11 +59,13 @@ abstract class BaseActivity : AppCompatActivity(),
     }
 
     override fun showMessage(message: String?) {
-        Snackbar.make(
-                findViewById(R.id.mainContainer),
-                message ?: getString(R.string.unknown_error),
-                Snackbar.LENGTH_LONG
-        ).show()
+        Snackbar
+                .make(
+                        findViewById(R.id.mainContainer),
+                        message ?: getString(R.string.unknown_error),
+                        Snackbar.LENGTH_LONG
+                )
+                .show()
     }
 
     override fun showMessage(@StringRes resId: Int) {

@@ -1,6 +1,7 @@
 package parkhomov.andrew.getmymoney.ui.activity.main
 
 import parkhomov.andrew.getmymoney.R
+import parkhomov.andrew.getmymoney.interactor.CheckboxObservable
 import parkhomov.andrew.getmymoney.interactor.MainActivityInteractor
 import parkhomov.andrew.getmymoney.ui.base.BasePresenter
 import javax.inject.Inject
@@ -9,7 +10,9 @@ class MainActivityPresenter<V : MainActivityMvpView>
 @Inject
 constructor(
         private val interactor: MainActivityInteractor
-) : BasePresenter<V>(), MainActivityMvpPresenter<V> {
+) : BasePresenter<V>(),
+        MainActivityMvpPresenter<V>,
+        CheckboxObservable {
 
     override fun saveList(personList: MutableList<MainActivity.PersonItem>) {
         interactor.saveList(interactor.convertToJson(personList))
@@ -29,5 +32,14 @@ constructor(
         else
             R.string.save_list_message_with_warning
         mvpView?.createSaveListDialog(stringId)
+    }
+
+    override fun getCheckboxState() {
+        interactor.observable = this
+        mvpView?.initializeAdapter(interactor.getCheckboxState())
+    }
+
+    override fun checkboxStateChanged(isChecked: Boolean) {
+        mvpView?.checkboxStateChanged(isChecked)
     }
 }

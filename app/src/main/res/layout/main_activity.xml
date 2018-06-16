@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--<include layout="@layout/toolbar" />-->
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/amount_container"
         android:layout_width="match_parent"
@@ -74,6 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        app:layout_dodgeInsetEdges="bottom"
         app:layout_behavior="parkhomov.andrew.getmymoney.utils.ui.QuickReturnFooterBehavior">
 
         <Button
@@ -84,7 +87,7 @@
             android:layout_gravity="bottom|start"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="20dp"
-            android:text="@string/menu_btn_calculate"
+            android:text="@string/btn_calculate"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_add"
             app:layout_constraintStart_toStartOf="parent"
