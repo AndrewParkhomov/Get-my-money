@@ -61,7 +61,7 @@ abstract class BaseActivity : AppCompatActivity(),
     override fun showMessage(message: String?) {
         Snackbar
                 .make(
-                        findViewById(R.id.mainContainer),
+                        findViewById(R.id.main_container),
                         message ?: getString(R.string.unknown_error),
                         Snackbar.LENGTH_LONG
                 )

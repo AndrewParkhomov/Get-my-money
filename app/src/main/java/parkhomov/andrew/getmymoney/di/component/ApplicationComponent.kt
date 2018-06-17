@@ -5,11 +5,12 @@ import dagger.Component
 import parkhomov.andrew.getmymoney.MyApp
 import parkhomov.andrew.getmymoney.di.module.ActivityModule
 import parkhomov.andrew.getmymoney.di.module.ApplicationModule
+import parkhomov.andrew.getmymoney.di.module.NavigationModule
 import parkhomov.andrew.getmymoney.di.module.ServiceModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [(ApplicationModule::class)])
+@Component(modules = [(ApplicationModule::class),(NavigationModule::class)])
 interface ApplicationComponent {
 
     fun inject(app: MyApp)

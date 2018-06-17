@@ -3,24 +3,29 @@ package parkhomov.andrew.getmymoney.ui.activity.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.main_activity.*
-import kotlinx.android.synthetic.main.toolbar.*
 import parkhomov.andrew.getmymoney.BuildConfig
 import parkhomov.andrew.getmymoney.R
-import parkhomov.andrew.getmymoney.R.layout.toolbar
 import parkhomov.andrew.getmymoney.ui.base.BaseActivity
 import parkhomov.andrew.getmymoney.ui.base.BaseViewHolder
 import parkhomov.andrew.getmymoney.ui.fragments.HowItsWork
 import parkhomov.andrew.getmymoney.ui.fragments.dialog.AddPerson
 import parkhomov.andrew.getmymoney.utils.Utils
+import parkhomov.andrew.getmymoney.utils.subnavigation.common.BackButtonListener
 import parkhomov.andrew.getmymoney.utils.ui.QuickReturnFooterBehavior
 import parkhomov.andrew.getmymoney.utils.ui.RecyclerDivider
+import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.android.SupportFragmentNavigator
+import ru.terrakok.cicerone.commands.Command
 import java.util.*
 import javax.inject.Inject
 
@@ -30,6 +35,7 @@ fun Context.mainActivityIntent(): Intent =
 
 class MainActivity : BaseActivity(),
         AddPerson.OnSavePressed,
+        Toolbar.OnMenuItemClickListener,
         MainActivityMvpView {
 
     @Inject
@@ -38,6 +44,30 @@ class MainActivity : BaseActivity(),
     lateinit var recyclerDivider: RecyclerDivider
     @Inject
     lateinit var adapter: PersonItemsAdapter
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+    private val navigator = object : SupportFragmentNavigator(supportFragmentManager, R.id.main_container) {
+        override fun createFragment(screenKey: String, data: Any): Fragment {
+            return when (screenKey) {
+                HowItsWork.TAG -> HowItsWork.instance
+                else -> throw RuntimeException("No screen key provided")
+            }
+        }
+
+        override fun showSystemMessage(message: String) {
+            Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
+        }
+
+        override fun exit() {
+            finish()
+        }
+
+        override fun applyCommands(commands: Array<Command>) {
+            super.applyCommands(commands)
+            supportFragmentManager.executePendingTransactions()
+        }
+    }
 
     private var totalAmount = 0f
     private var amountForPerson = 0f
@@ -56,10 +86,22 @@ class MainActivity : BaseActivity(),
         presenter.onAttach(this)
         presenter.getCheckboxState()
 
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+
         initListeners()
         clearTotalTextView()
         handleTotalAmountVisibility()
         setRecyclerViewMargin(0f)
+    }
+
+    override fun onResumeFragments() {
+        navigatorHolder.setNavigator(navigator)
+        super.onResumeFragments()
+    }
+
+    override fun onPause() {
+        navigatorHolder.removeNavigator()
+        super.onPause()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -111,14 +153,11 @@ class MainActivity : BaseActivity(),
     }
 
     private fun onShowHowItsWorkFragmentClicked() {
-        supportFragmentManager!!
-                .beginTransaction()
-                .addToBackStack(null)
-                .add(R.id.mainContainer, HowItsWork.instance, HowItsWork.TAG)
-                .commit()
+        presenter.openHowItsWorkFragment()
     }
 
     private fun onRestoreClicked() {
+        throw RuntimeException("Test first crash")
         presenter.onRestoreButtonClicked()
     }
 
@@ -127,14 +166,14 @@ class MainActivity : BaseActivity(),
     }
 
     override fun createSaveListDialog(stringId: Int) {
-        if(adapter.personList.count() != 0){
+        if (adapter.personList.count() != 0) {
             AlertDialog.Builder(this)
                     .setMessage(getString(stringId))
                     .setNegativeButton(android.R.string.no, null)
                     .setPositiveButton(android.R.string.yes) { _, _ ->
                         presenter.saveList(adapter.personList)
                     }.create().show()
-        }else{
+        } else {
             showMessage(getString(R.string.save_list_is_empty))
         }
     }
@@ -162,6 +201,11 @@ class MainActivity : BaseActivity(),
         button_calculate.setOnClickListener { onCalculateButtonClicked() }
     }
 
+    override fun onMenuItemClick(p0: MenuItem): Boolean {
+        showMessage("CLICKED")
+        return false
+    }
+
     private fun handleTotalAmountVisibility() {
         val isVisible = adapter.personList.count() != 0
         top_image_view.visibility = if (isVisible) View.VISIBLE else View.GONE
@@ -185,7 +229,7 @@ class MainActivity : BaseActivity(),
     }
 
     private fun onDeleteFieldClicked() {
-        if(adapter.personList.count() != 0){
+        if (adapter.personList.count() != 0) {
             AlertDialog.Builder(this)
                     .setMessage(getString(R.string.delete_all_question))
                     .setNegativeButton(android.R.string.no, null)
@@ -198,7 +242,7 @@ class MainActivity : BaseActivity(),
                         QuickReturnFooterBehavior(this, null).show(button_container)
                         setRecyclerViewMargin(0f)
                     }.create().show()
-        }else{
+        } else {
             showMessage(getString(R.string.delete_list_is_empty))
         }
     }
@@ -323,6 +367,19 @@ class MainActivity : BaseActivity(),
         if (total_amount.visibility == View.GONE) {
             handleTotalAmountVisibility()
             setRecyclerViewMargin(160f)
+        }
+    }
+
+    override fun onBackPressed() {
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+        supportActionBar!!.setTitle(R.string.app_name)
+        val fragment = supportFragmentManager.findFragmentById(R.id.main_container)
+        if (fragment != null
+                && fragment is BackButtonListener
+                && (fragment as BackButtonListener).onBackPressed()) {
+            return
+        } else {
+            super.onBackPressed()
         }
     }
 

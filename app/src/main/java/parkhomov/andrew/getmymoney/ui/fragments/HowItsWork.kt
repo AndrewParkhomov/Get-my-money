@@ -6,12 +6,14 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.how_its_work.*
-import kotlinx.android.synthetic.main.toolbar.*
 import parkhomov.andrew.getmymoney.R
 import parkhomov.andrew.getmymoney.ui.base.BaseFragment
+import parkhomov.andrew.getmymoney.utils.subnavigation.common.BackButtonListener
 import javax.inject.Inject
 
-class HowItsWork : BaseFragment(), HowItsWorkMvpView {
+class HowItsWork : BaseFragment(),
+        BackButtonListener,
+        HowItsWorkMvpView {
 
     @Inject
     lateinit var presenter: HowItsWorkMvpPresenter<HowItsWorkMvpView>
@@ -60,10 +62,13 @@ class HowItsWork : BaseFragment(), HowItsWorkMvpView {
     }
 
     override fun onDestroyView() {
-        baseActivity!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-        baseActivity!!.supportActionBar!!.setTitle(R.string.app_name)
         presenter.onDetach()
         super.onDestroyView()
+    }
+
+    override fun onBackPressed(): Boolean {
+        presenter.closeFragment()
+        return true
     }
 
     companion object {

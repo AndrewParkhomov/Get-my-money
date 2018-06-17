@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="parkhomov.andrew.getmymoney">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -12,8 +14,8 @@
         android:theme="@style/AppTheme">
 
         <meta-data
-            android:name="com.crashlytics.ApiKey"
-            android:value="a89bea254d714d9e0d72ae71d9de8059d5bba05a" />
+            android:name="io.fabric.ApiKey"
+            android:value="5102b8da0f05c38da667ebaf2438d0c0951eb15f" />
 
         <activity
             android:launchMode="singleTop"

@@ -9,6 +9,7 @@ import parkhomov.andrew.getmymoney.interactor.MainActivityInteractor
 import parkhomov.andrew.getmymoney.R
 import parkhomov.andrew.getmymoney.utils.AppPreferencesHelper
 import parkhomov.andrew.getmymoney.utils.PreferencesHelper
+import parkhomov.andrew.getmymoney.utils.subnavigation.LocalCiceroneHolder
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import javax.inject.Singleton
 
@@ -30,6 +31,10 @@ class ApplicationModule(private val context: Context) {
     @Singleton
     fun providePreferencesHelper(appPreferencesHelper: AppPreferencesHelper): PreferencesHelper =
             appPreferencesHelper
+
+    @Provides
+    @Singleton
+    internal fun provideLocalNavigationHolder(): LocalCiceroneHolder = LocalCiceroneHolder()
 
     @Provides
     @Singleton

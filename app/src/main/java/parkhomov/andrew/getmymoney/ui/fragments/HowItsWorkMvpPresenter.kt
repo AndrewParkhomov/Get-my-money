@@ -9,4 +9,6 @@ interface HowItsWorkMvpPresenter<V : HowItsWorkMvpView> : MvpPresenter<V> {
     fun setIsCheckboxChecked(isChecked: Boolean)
 
     fun getCheckboxState()
+
+    fun closeFragment()
 }

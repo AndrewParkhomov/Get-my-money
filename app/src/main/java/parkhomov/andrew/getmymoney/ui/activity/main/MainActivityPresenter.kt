@@ -4,12 +4,15 @@ import parkhomov.andrew.getmymoney.R
 import parkhomov.andrew.getmymoney.interactor.CheckboxObservable
 import parkhomov.andrew.getmymoney.interactor.MainActivityInteractor
 import parkhomov.andrew.getmymoney.ui.base.BasePresenter
+import parkhomov.andrew.getmymoney.ui.fragments.HowItsWork
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class MainActivityPresenter<V : MainActivityMvpView>
 @Inject
 constructor(
-        private val interactor: MainActivityInteractor
+        private val interactor: MainActivityInteractor,
+        private val router: Router
 ) : BasePresenter<V>(),
         MainActivityMvpPresenter<V>,
         CheckboxObservable {
@@ -32,6 +35,10 @@ constructor(
         else
             R.string.save_list_message_with_warning
         mvpView?.createSaveListDialog(stringId)
+    }
+
+    override fun openHowItsWorkFragment() {
+        router.navigateTo(HowItsWork.TAG, 0)
     }
 
     override fun getCheckboxState() {

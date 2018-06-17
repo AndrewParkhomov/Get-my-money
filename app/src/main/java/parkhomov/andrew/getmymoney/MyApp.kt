@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatDelegate
 import com.crashlytics.android.Crashlytics
 import com.squareup.leakcanary.LeakCanary
 import io.fabric.sdk.android.Fabric
-import parkhomov.andrew.getmymoney.utils.Utils
 import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import java.util.*
@@ -28,10 +27,10 @@ class MyApp : Application() {
         appContext = applicationContext
         initCustomFonts()
 
-        if (BuildConfig.DEBUG) {
+//        if (BuildConfig.DEBUG) {
             initLogger()
             initLeakCanary()
-        } else
+//        } else
             initFabric()
     }
 
@@ -60,7 +59,14 @@ class MyApp : Application() {
     }
 
     private fun initCustomFonts() = CalligraphyConfig.initDefault(calligraphyConfig)
-    private fun initFabric() = Fabric.with(this, Crashlytics())
+    private fun initFabric() {
+        Fabric.with(this, Crashlytics())
+//        // TODO: Use the current user's information
+//        // You can call any combination of these three methods
+//        Crashlytics.setUserIdentifier("12345")
+//        Crashlytics.setUserEmail("take.my.money.app@fabric.io")
+//        Crashlytics.setUserName("Test User")
+    }
 
     private fun setLanguage() {
         val currentLanguage = "" // your lang

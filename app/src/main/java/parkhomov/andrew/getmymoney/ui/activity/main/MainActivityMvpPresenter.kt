@@ -14,4 +14,6 @@ interface MainActivityMvpPresenter<V : MainActivityMvpView> : MvpPresenter<V> {
 
     fun getCheckboxState()
 
+    fun openHowItsWorkFragment()
+
 }
