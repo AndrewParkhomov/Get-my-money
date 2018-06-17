@@ -35,6 +35,6 @@ class MainActivityInteractor(
     }
 
 
-    fun getCheckboxState(): Boolean = preferencesHelper.getBooleanValue(isCheckboxCheckedKey)
+    fun getCheckboxState(): Boolean = preferencesHelper.getBooleanValue(isCheckboxCheckedKey, true)
 
 }

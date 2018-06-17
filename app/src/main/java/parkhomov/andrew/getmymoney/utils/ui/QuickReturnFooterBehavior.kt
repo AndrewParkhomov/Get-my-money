@@ -8,7 +8,6 @@ import android.support.v4.view.ViewCompat
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.Interpolator
 
 /**
  * CoordinatorLayout Behavior for a quick return footer
@@ -127,7 +126,7 @@ class QuickReturnFooterBehavior(context: Context, attrs: AttributeSet?) :
      *
      * @param view The quick return view
      */
-     fun show(view: View) {
+    fun show(view: View) {
         view.animate().cancel()
 
         view.animate()

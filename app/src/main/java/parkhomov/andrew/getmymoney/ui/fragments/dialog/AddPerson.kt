@@ -55,12 +55,12 @@ class AddPerson : BaseDialog(),
         savePerson.setOnClickListener {
             onAddPersonButtonClicked()
         }
-        value.setOnEditorActionListener({ _, actionId, _ ->
+        value.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 onAddPersonButtonClicked()
             }
             false
-        })
+        }
     }
 
     private fun onAddPersonButtonClicked() {

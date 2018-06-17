@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Take my money</string>
     <!-- Errors -->
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="name_required">Введите имя</string>
@@ -22,8 +21,8 @@
     <string name="delete_all_question">Вы действительно хотите очистить список?</string>
     <string name="saved_list_is_empty">У вас нету сохраненного списка</string>
     <string name="share_result">Поделиться с помощью&#8230;</string>
-    <string name="share_result_subject">Результат расчета программы \'Take my money\'</string>
-    <string name="calculated_by">Посчитано с помощью приложения \'Take my money\'</string>
+    <string name="share_result_subject">Результат расчета программы \'Get my money\'</string>
+    <string name="calculated_by">Посчитано с помощью приложения \'Get my money\'</string>
     <string name="person_pay_more">заплатил больше на</string>
     <string name="person_must_pay">должен отдать</string>
     <string name="person_nothing_should_give">ничего не должен</string>

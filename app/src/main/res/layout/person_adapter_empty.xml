@@ -45,6 +45,4 @@
         app:layout_constraintStart_toStartOf="@+id/empty_list_text"
         app:layout_constraintTop_toBottomOf="@+id/empty_list_text" />
 
-
-
 </android.support.constraint.ConstraintLayout>

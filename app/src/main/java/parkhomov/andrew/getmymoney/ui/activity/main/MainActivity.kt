@@ -157,7 +157,7 @@ class MainActivity : BaseActivity(),
     }
 
     private fun onRestoreClicked() {
-        throw RuntimeException("Test first crash")
+//        throw RuntimeException("Test first crash")
         presenter.onRestoreButtonClicked()
     }
 

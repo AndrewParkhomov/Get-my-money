@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Take my money</string>
+    <string name="app_name">Get my money</string>
     <!-- Errors -->
     <string name="unknown_error">Some error occurred</string>
     <string name="name_required">Name required</string>
     <string name="value_required">Value required</string>
-    <string name="save_list_is_empty">There is not item in list</string>
-    <string name="delete_list_is_empty">There is not item in list</string>
-    <string name="dont_enough_persons_for_calculation">You need 2 persons for calculation</string>
+    <string name="save_list_is_empty">There is no items in list</string>
+    <string name="delete_list_is_empty">There is no items in list</string>
+    <string name="dont_enough_persons_for_calculation">Need 2 persons for calculation</string>
     <string name="share_result_error">You should press \'Calculate\' so that you can share results</string>
     <!-- Menu -->
     <string name="menu_btn_clear_all">Clear all</string>
@@ -14,21 +14,21 @@
     <string name="menu_btn_save">Save</string>
     <string name="menu_btn_restore">Restore</string>
     <string name="menu_btn_show_fragment">How it\'s work</string>
-    <string name="save_list_message_with_warning">Do you want to save list? Previous save will be overwritten.</string>
+    <string name="save_list_message_with_warning">Do you want to save list? Previous saved data will be overwritten.</string>
     <string name="save_list_message_without_warning">Do you want to save list?</string>
     <string name="restore_list_not_empty_current_list_message">Do you want to restore saved list? Current list will be deleted.</string>
     <string name="restore_list_empty_current_list_message">Do you want to restore saved list?</string>
     <string name="delete_all_question">Do you really want to delete all items?</string>
     <string name="saved_list_is_empty">Saved list not found</string>
     <string name="share_result">Share with&#8230;</string>
-    <string name="share_result_subject">Take my money result</string>
-    <string name="calculated_by">Calculated by \'Take my money\' app</string>
+    <string name="share_result_subject">Get my money result</string>
+    <string name="calculated_by">Calculated using \'Get my money\' app</string>
     <string name="person_pay_more">paid more for</string>
     <string name="person_must_pay">must pay</string>
     <string name="person_nothing_should_give">nothing should give</string>
     <!-- Main screen-->
     <string name="total_amount">Total amount</string>
-    <string name="amount_for_person">Amount for person</string>
+    <string name="amount_for_person">Amount per person</string>
     <!-- UI xml text -->
     <string name="hint_name">Name</string>
     <string name="hint_value">Value</string>
@@ -40,12 +40,12 @@
     <string name="show_hint_on_main_screen">Show hint in main screen</string>
     <string name="how_its_work_text">\tThe application will help you calculate the amount you owe, or
         should you after you have made a purchase and do not know who owes whom.
-        \nFor example, Oleg spent 125, Alexander - 30.45, Elena - 101.33 and Julia 64.98.
+        \nFor example, John spent 125, Alexander - 30.45, Sara - 101.33 and Julia 64.98.
         The application will calculate the total amount (321.76), the amount that must be paid each
         (the amount is divided equally among all participants in the list) - 80.44, and individually
-        who should give how much.\n\tAlexander paid more at 44.56, Oleg should give back 49.99,
-        Elena paid more for 20.89 and Julia should give back 15.46.\n\tYou can add unlimited
-        number of people, share the result via an instant messenger or send an email.
+        who should give and how much.\n\tAlexander paid more at 44.56, John should give back 49.99,
+        Sara paid more for 20.89 and Julia should give back 15.46.\n\tYou can add unlimited
+        number of people, share the result via the messenger or send an email.
         Also you can save the result, clear the list, create a new one and later upload the save,
         add people and make a calculation again.\n\n\tIn next release:\n\t-History of all saved results</string>
 
